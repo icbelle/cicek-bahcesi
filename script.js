@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.setProperty('--card-gradient', flower.color);
       card.innerHTML = `
         <div class="flower-card-visual" style="background:${flower.color}">
-          <span class="flower-card-emoji">${flower.emoji}</span>
+          <span class="flower-emoji">${flower.emoji}</span>
         </div>
         <div class="flower-card-info">
           <h3>${flower.name}</h3>
@@ -506,6 +506,11 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       card.addEventListener('click', () => openModal(flower));
       cardsContainer.appendChild(card);
+      
+      // Trigger CSS animation
+      setTimeout(() => {
+        card.classList.add('visible');
+      }, 50);
     });
   }
 
@@ -535,11 +540,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (gardenPalette) {
     paletteFlowers.forEach((pf, i) => {
       const item = document.createElement('button');
-      item.className = 'palette-item' + (i === 0 ? ' active' : '');
-      item.innerHTML = `<span class="palette-emoji">${pf.emoji}</span><span class="palette-name">${pf.name}</span>`;
+      item.className = 'palette-item' + (i === 0 ? ' selected' : '');
+      item.innerHTML = `<span class="p-emoji">${pf.emoji}</span><span class="p-name">${pf.name}</span>`;
       item.addEventListener('click', () => {
-        document.querySelectorAll('.palette-item').forEach(el => el.classList.remove('active'));
-        item.classList.add('active');
+        document.querySelectorAll('.palette-item').forEach(el => el.classList.remove('selected'));
+        item.classList.add('selected');
         selectedPaletteFlower = pf;
       });
       gardenPalette.appendChild(item);
