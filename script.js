@@ -1,642 +1,903 @@
-/* ===================================
-   ÇIÇEK BAHÇEM – JAVASCRIPT
-   =================================== */
+// ============================================================
+// Çiçek Bahçesi – script.js  (Complete)
+// ============================================================
 
-// ===== FLOWER DATA =====
-const flowers = [
-    {
-        id: 1, name: "Gül", emoji: "🌹", latin: "Rosa",
-        desc: "Aşkın ve tutkunun sembolü olan güller, bahçelerin vazgeçilmez çiçeğidir. 100'den fazla türü vardır.",
-        fullDesc: "Güller, Rosaceae familyasından olup dünyada 100'den fazla türü bulunan en popüler süs bitkilerinden biridir. Antik çağlardan beri güzellik, aşk ve tutkunun sembolü olmuştur. Bakımı düzenli budama ve bol güneş ışığı gerektirir.",
-        season: "yaz", difficulty: "Orta", sunlight: "Tam Güneş",
-        water: "Düzenli", bloom: "Haziran - Ekim",
-        color: "linear-gradient(135deg, #FFB6C1, #FF69B4)",
-        tips: ["Haftada 2-3 kez derin sulama yapın", "Solmuş çiçekleri hemen kesin", "İlkbaharda budama yapın", "Yaprak bitlerini kontrol edin"],
-        tags: ["yaz", "orta"]
-    },
-    {
-        id: 2, name: "Lale", emoji: "🌷", latin: "Tulipa",
-        desc: "İlkbaharın müjdecisi laleler, canlı renkleriyle bahçeye neşe katar. Soğandan yetiştirilir.",
-        fullDesc: "Laleler, Liliaceae familyasından soğanlı bitkilerdir. Hollanda'nın simgesi olan laleler, aslında Orta Asya kökenlidir ve Osmanlı döneminde Avrupa'ya tanıtılmıştır. 3000'den fazla kayıtlı çeşidi bulunur.",
-        season: "ilkbahar", difficulty: "Kolay", sunlight: "Tam Güneş / Yarı Gölge",
-        water: "Az-Orta", bloom: "Mart - Mayıs",
-        color: "linear-gradient(135deg, #E8B4CB, #D4A0B9)",
-        tips: ["Soğanları sonbaharda dikin", "İyi drene olan toprak kullanın", "Soğanlara temas etmeyin", "Yapraklar sararana kadar kesmeyin"],
-        tags: ["ilkbahar", "kolay"]
-    },
-    {
-        id: 3, name: "Papatya", emoji: "🌼", latin: "Bellis perennis",
-        desc: "Saflığın ve masumiyetin simgesi papatyalar, dayanıklı ve bakımı kolay çiçeklerdir.",
-        fullDesc: "Papatyalar, Asteraceae familyasından çok yıllık bitkilerdir. Beyaz yaprakları ve sarı göbeği ile tanınan papatyalar, hem süs bitkisi hem de şifalı bitki olarak kullanılır. Papatya çayı sakinleştirici etkileriyle bilinir.",
-        season: "ilkbahar", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Az", bloom: "Nisan - Eylül",
-        color: "linear-gradient(135deg, #FFF5E6, #FFE4C9)",
-        tips: ["Kuraklığa dayanıklıdır", "Aşırı sulamadan kaçının", "Güneşli yer seçin", "Kendi kendine yayılabilir"],
-        tags: ["ilkbahar", "kolay"]
-    },
-    {
-        id: 4, name: "Ayçiçeği", emoji: "🌻", latin: "Helianthus annuus",
-        desc: "Güneşe dönen dev çiçekler! Ayçiçekleri bahçeye neşe ve sıcaklık katar.",
-        fullDesc: "Ayçiçeği, Kuzey Amerika kökenli tek yıllık bir bitkidir. Güneşe dönme özelliği (heliotropizm) ile bilinir. 3 metreye kadar boylanabilir ve çekirdekleri hem yenilebilir hem de yağ üretiminde kullanılır.",
-        season: "yaz", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Orta", bloom: "Temmuz - Eylül",
-        color: "linear-gradient(135deg, #FFEAA7, #FFD93D)",
-        tips: ["Direkt tohum ekimi yapın", "Derin kökleri için derin sulayın", "Rüzgardan koruyun", "Kuşlar için tohum bırakın"],
-        tags: ["yaz", "kolay"]
-    },
-    {
-        id: 5, name: "Lavanta", emoji: "🪻", latin: "Lavandula",
-        desc: "Mis kokulu mor çiçekleriyle lavanta, hem göze hem ruha hitap eden bir bitkidir.",
-        fullDesc: "Lavanta, Lamiaceae familyasından aromatik bir bitkidir. Akdeniz kökenli olan lavanta, kokusu, rengi ve şifalı özellikleriyle dünyaca ünlüdür. Uçucu yağı aromaterapi, kozmetik ve mutfakta kullanılır.",
-        season: "yaz", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Az", bloom: "Haziran - Ağustos",
-        color: "linear-gradient(135deg, #DDA0DD, #DA70D6)",
-        tips: ["Kuru ve alkalin toprak sevin", "Aşırı sulamadan kaçının", "Çiçek açtıktan sonra budayın", "Kışın mulç ile koruyun"],
-        tags: ["yaz", "kolay"]
-    },
-    {
-        id: 6, name: "Orkide", emoji: "🌺", latin: "Orchidaceae",
-        desc: "Egzotik güzellikleriyle orkideler, zarif ve sofistike bir görünüm sunar.",
-        fullDesc: "Orkideler, dünyada en geniş çiçekli bitki familyasından biridir. 28.000'den fazla türü bulunan orkideler, tropik bölgelerden kutuplara kadar her yerde yetişebilir. Karmaşık çiçek yapıları ve muazzam çeşitlilikleri ile tanınırlar.",
-        season: "yaz", difficulty: "Zor", sunlight: "Dolaylı Işık",
-        water: "Az-Orta", bloom: "Yıl Boyu",
-        color: "linear-gradient(135deg, #F8E8F0, #F0C0D8)",
-        tips: ["Dolaylı güneş ışığı verin", "Buz küpü ile sulayın", "Özel orkide toprağı kullanın", "Nemli ortam sağlayın"],
-        tags: ["yaz", "zor"]
-    },
-    {
-        id: 7, name: "Sümbül", emoji: "💜", latin: "Hyacinthus",
-        desc: "Yoğun ve tatlı kokusuyla sümbüller, ilkbaharın en renkli çiçeklerinden biridir.",
-        fullDesc: "Sümbüller, soğanlı çok yıllık bitkilerdir. Akdeniz ve İran kökenli olan sümbüller, ilkbaharın erken döneminde çiçek açar. Yoğun kokuları ve canlı renkleriyle bahçelerde ve evlerde çok tercih edilirler.",
-        season: "ilkbahar", difficulty: "Kolay", sunlight: "Tam Güneş / Yarı Gölge",
-        water: "Orta", bloom: "Mart - Nisan",
-        color: "linear-gradient(135deg, #E8D5F5, #D0B0E8)",
-        tips: ["Soğanları sonbaharda dikin", "Serin ortamda çiçek açar", "Çiçek salkımını destekleyin", "Saksıda da yetişir"],
-        tags: ["ilkbahar", "kolay"]
-    },
-    {
-        id: 8, name: "Yasemin", emoji: "🤍", latin: "Jasminum",
-        desc: "Büyüleyici kokusuyla akşamları açan yasemin, bahçeye romantizm katar.",
-        fullDesc: "Yasemin, Oleaceae familyasından tırmanıcı ya da çalı formunda büyüyen bir bitkidir. 200'den fazla türü olan yasemin, özellikle beyaz çiçekleri ve yoğun kokusuyla bilinir. Parfüm endüstrisinin en değerli çiçeklerinden biridir.",
-        season: "yaz", difficulty: "Orta", sunlight: "Tam Güneş / Yarı Gölge",
-        water: "Orta", bloom: "Haziran - Eylül",
-        color: "linear-gradient(135deg, #F5F5DC, #FFFAF0)",
-        tips: ["Tırmanma desteği sağlayın", "Düzenli budama yapın", "İlkbaharda gübreleme yapın", "Kışın soğuktan koruyun"],
-        tags: ["yaz", "orta"]
-    },
-    {
-        id: 9, name: "Kamelya", emoji: "🌺", latin: "Camellia",
-        desc: "Kış aylarında çiçek açan zarif kamelya, bahçenizi kışın bile renklendirir.",
-        fullDesc: "Kamelya, Theaceae familyasından yaprak dökmeyen bir çalıdır. Doğu Asya kökenli olan kamelya, kış aylarında çiçek açmasıyla özeldir. Çay bitkisi de kamelya ailesine aittir (Camellia sinensis).",
-        season: "kislik", difficulty: "Orta", sunlight: "Yarı Gölge",
-        water: "Düzenli", bloom: "Kasım - Mart",
-        color: "linear-gradient(135deg, #FFE4E1, #FFC0CB)",
-        tips: ["Asidik toprak tercih edin", "Rüzgardan korunaklı yer seçin", "Düzenli ancak fazla olmayan sulama", "Azalea-kamelya gübresi kullanın"],
-        tags: ["kislik", "orta"]
-    },
-    {
-        id: 10, name: "Nergis", emoji: "🌼", latin: "Narcissus",
-        desc: "İlkbaharın habercisi nergisler, sarı ve beyaz tonlarıyla neşe saçar.",
-        fullDesc: "Nergis, Amaryllidaceae familyasından soğanlı bir bitkidir. İlkbahar başında çiçek açan nergisler, dayanıklı yapılarıyla bahçıvanların favorisidir. Trompet şekilli çiçekleri ve tatlı kokusuyla tanınır.",
-        season: "ilkbahar", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Az-Orta", bloom: "Şubat - Nisan",
-        color: "linear-gradient(135deg, #FFF8DC, #FFE4B5)",
-        tips: ["Soğanları 15 cm derinliğe dikin", "Gruplar halinde daha güzel görünür", "Çiçekler solduktan sonra yaprakları bırakın", "Fare ve tavşanlar yemez"],
-        tags: ["ilkbahar", "kolay"]
-    },
-    {
-        id: 11, name: "Kadife Çiçeği", emoji: "🧡", latin: "Tagetes",
-        desc: "Turuncu ve sarı tonlarıyla kadife çiçeği, zararlıları uzaklaştırmada da etkilidir.",
-        fullDesc: "Kadife çiçeği, Asteraceae familyasından tek yıllık bir bitkidir. Canlı turuncu ve sarı çiçekleriyle bahçeye sıcaklık katar. Doğal zararlı kovucu özelliği sayesinde sebze bahçelerinde de yaygın kullanılır.",
-        season: "sonbahar", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Az-Orta", bloom: "Haziran - Kasım",
-        color: "linear-gradient(135deg, #FFE0B2, #FFB74D)",
-        tips: ["Tohum ile kolayca yetiştirin", "Solmuş çiçekleri koparın", "Sebze bahçesinde ekim yapın", "Sıcaklığı sever"],
-        tags: ["sonbahar", "kolay"]
-    },
-    {
-        id: 12, name: "Kardelen", emoji: "❄️", latin: "Galanthus",
-        desc: "Karların arasından çıkan narin kardelen, umudun ve yeni başlangıcların çiçeğidir.",
-        fullDesc: "Kardelen, Amaryllidaceae familyasından soğanlı küçük bir bitkidir. Kış sonunda, karlar erimeden çiçek açan ilk bitkilerden biridir. Beyaz çan şekilli çiçekleri ile zarif bir görünüm sunar.",
-        season: "kislik", difficulty: "Kolay", sunlight: "Yarı Gölge",
-        water: "Az", bloom: "Ocak - Mart",
-        color: "linear-gradient(135deg, #F0F8FF, #E0E8F0)",
-        tips: ["Ağaç altlarına dikin", "Soğanları sonbaharda dikin", "Doğallaşmasına izin verin", "Nemli toprak tercih edin"],
-        tags: ["kislik", "kolay"]
-    },
-    {
-        id: 13, name: "Sakura", emoji: "🌸", latin: "Prunus serrulata",
-        desc: "Japon kiraz çiçeği, pembe bulutlar gibi açarak büyüleyici bir manzara sunar.",
-        fullDesc: "Sakura, Japon kültürünün simgesi olan kiraz ağacı çiçeğidir. İlkbaharda kısa bir süre açan bu çiçekler, yaşamın geçiciliğini (mono no aware) sembolize eder. Pembe ve beyaz tonlarıyla hayranlık uyandırır.",
-        season: "ilkbahar", difficulty: "Orta", sunlight: "Tam Güneş",
-        water: "Düzenli", bloom: "Mart - Nisan",
-        color: "linear-gradient(135deg, #FFE4EC, #FFB6C1)",
-        tips: ["Geniş alana ihtiyaç duyar", "İyi drene olan toprak kullanın", "Çiçeklenme sonrası budayın", "Sabırlı olun, ağaç büyümesi zaman alır"],
-        tags: ["ilkbahar", "orta"]
-    },
-    {
-        id: 14, name: "Ortanca", emoji: "💠", latin: "Hydrangea",
-        desc: "Toprak pH'ına göre renk değiştiren ortancalar, geniş çiçek kümeleriyle göz kamaştırır.",
-        fullDesc: "Ortanca, Hydrangeaceae familyasından çalı formunda büyüyen çok yıllık bir bitkidir. Büyük, top şeklindeki çiçek kümeleriyle dikkat çeker. Toprak pH'ına göre mavi, pembe veya mor renkte çiçek açar.",
-        season: "yaz", difficulty: "Orta", sunlight: "Yarı Gölge",
-        water: "Bol", bloom: "Haziran - Eylül",
-        color: "linear-gradient(135deg, #D0E8F5, #B0C0E8)",
-        tips: ["Asidik toprak mavi, bazik pembe çiçek verir", "Bol su isteyen bir bitkidir", "Yarı gölge ideal yerdir", "Kuru çiçekleri dekoratif kullanın"],
-        tags: ["yaz", "orta"]
-    },
-    {
-        id: 15, name: "Sardunya", emoji: "🌺", latin: "Pelargonium",
-        desc: "Balkon ve pencere pervazlarının vazgeçilmezi sardunya, canlı renkleriyle enerji verir.",
-        fullDesc: "Sardunya, Geraniaceae familyasından yarı dayanıklı çok yıllık bir bitkidir. Güney Afrika kökenli olan sardunya, kolay bakımı ve uzun çiçeklenme dönemiyle dünyanın en popüler balkon çiçeklerinden biridir.",
-        season: "yaz", difficulty: "Kolay", sunlight: "Tam Güneş",
-        water: "Orta", bloom: "Mayıs - Kasım",
-        color: "linear-gradient(135deg, #FF6B6B, #FF8E8E)",
-        tips: ["Bol güneş ışığı verin", "Toprak kuruduğunda sulayın", "Solmuş çiçekleri koparın", "Kışın içeri alın"],
-        tags: ["yaz", "kolay"]
-    },
-    {
-        id: 16, name: "Menekşe", emoji: "💜", latin: "Viola",
-        desc: "Küçük ama sevimli menekşeler, gölge bahçelerin en sadık çiçeğidir.",
-        fullDesc: "Menekşe, Violaceae familyasından tek veya çok yıllık bir bitkidir. Küçük, zarif çiçekleriyle tanınan menekşeler, gölge alanları seven bitkilerdendir. Afrika menekşesi (Saintpaulia) ev ortamında en çok yetiştirilen türdür.",
-        season: "ilkbahar", difficulty: "Kolay", sunlight: "Yarı Gölge",
-        water: "Orta", bloom: "Mart - Haziran",
-        color: "linear-gradient(135deg, #9B59B6, #8E44AD)",
-        tips: ["Dolaylı ışık tercih eder", "Yapraklarını ıslatmayın", "Serin ortamda daha iyi çiçek açar", "Özel menekşe toprağı kullanın"],
-        tags: ["ilkbahar", "kolay"]
-    },
-    {
-        id: 17, name: "Krizantem", emoji: "🏵️", latin: "Chrysanthemum",
-        desc: "Sonbaharın kraliçesi krizantemler, mevsimin son renklerini bahçeye taşır.",
-        fullDesc: "Krizantem, Asteraceae familyasından çok yıllık bir bitkidir. Uzakdoğu kültüründe önemli bir yere sahip olan krizantem, Japonya'nın ulusal çiçeğidir. Sonbaharda çiçek açan nadir bitkilerden biridir.",
-        season: "sonbahar", difficulty: "Orta", sunlight: "Tam Güneş",
-        water: "Düzenli", bloom: "Eylül - Kasım",
-        color: "linear-gradient(135deg, #FFD700, #FFA500)",
-        tips: ["Yaz ortasında tepe budaması yapın", "İyi hava sirkülasyonu sağlayın", "Tam güneş alan yer seçin", "Don öncesi koruma sağlayın"],
-        tags: ["sonbahar", "orta"]
-    },
-    {
-        id: 18, name: "Zambak", emoji: "🪷", latin: "Lilium",
-        desc: "Asalet ve zarafetin simgesi zambaklar, görkemli çiçekleriyle bahçeyi taçlandırır.",
-        fullDesc: "Zambak, Liliaceae familyasından soğanlı çok yıllık bir bitkidir. Büyük ve gösterişli çiçekleriyle bilinir. Kokulu türleri bahçeye harika bir koku katar. Beyaz zambak, saflık ve masumiyetin sembolüdür.",
-        season: "yaz", difficulty: "Orta", sunlight: "Tam Güneş / Yarı Gölge",
-        water: "Orta", bloom: "Haziran - Ağustos",
-        color: "linear-gradient(135deg, #FFFFFF, #FFF0F5)",
-        tips: ["Derin dikim yapın (soğan boyunun 3 katı)", "İyi drene olan toprak tercih edin", "Saksıda da yetişir", "Kedilere zehirlidir, dikkat edin"],
-        tags: ["yaz", "orta"]
-    }
-];
-
-// ===== PALETTE FLOWERS =====
-const paletteFlowers = [
-    { emoji: "🌹", name: "Gül" },
-    { emoji: "🌷", name: "Lale" },
-    { emoji: "🌼", name: "Papatya" },
-    { emoji: "🌻", name: "Ayçiçeği" },
-    { emoji: "🪻", name: "Lavanta" },
-    { emoji: "🌺", name: "Orkide" },
-    { emoji: "🌸", name: "Sakura" },
-    { emoji: "💐", name: "Buket" },
-    { emoji: "🪷", name: "Zambak" },
-    { emoji: "💮", name: "Beyaz Ç." },
-    { emoji: "🌿", name: "Yeşillik" },
-    { emoji: "🍀", name: "Yonca" },
-    { emoji: "🌱", name: "Fide" },
-    { emoji: "🪴", name: "Saksı" },
-    { emoji: "🌾", name: "Buğday" },
-    { emoji: "🍃", name: "Yaprak" },
-    { emoji: "🦋", name: "Kelebek" },
-    { emoji: "🐝", name: "Arı" },
-];
-
-// ===== DOM ELEMENTS =====
-const navbar = document.getElementById('navbar');
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.querySelector('.nav-links');
-const flowersGrid = document.getElementById('flowersGrid');
-const paletteItems = document.getElementById('paletteItems');
-const gardenCanvas = document.getElementById('gardenCanvas');
-const gardenPlantedArea = document.getElementById('gardenPlantedArea');
-const gardenInstructions = document.getElementById('gardenInstructions');
-const plantedCount = document.getElementById('plantedCount');
-const clearGarden = document.getElementById('clearGarden');
-const saveGarden = document.getElementById('saveGarden');
-const flowerModal = document.getElementById('flowerModal');
-const modalBody = document.getElementById('modalBody');
-const modalClose = document.getElementById('modalClose');
-const toast = document.getElementById('toast');
-const toastMessage = document.getElementById('toastMessage');
-const ctaForm = document.getElementById('ctaForm');
-const ctaSuccess = document.getElementById('ctaSuccess');
-
-let selectedPaletteFlower = null;
-let plantedFlowers = 0;
-
-// ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', () => {
-    renderFlowerCards();
-    renderPalette();
-    initScrollAnimations();
-    initCounterAnimation();
-});
 
-// ===== NAVBAR SCROLL =====
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+  // ----------------------------------------------------------
+  // 1. FLOWER DATA (16 flowers)
+  // ----------------------------------------------------------
+  const flowers = [
+    {
+      id: 'gul',
+      name: 'Gül',
+      emoji: '🌹',
+      latin: 'Rosa',
+      desc: 'Aşkın ve tutkunun zamansız sembolü.',
+      fullDesc: 'Gül, yüzyıllardır şiirlere, şarkılara ve bahçelere ilham veren eşsiz bir çiçektir. Dünyada 30.000\'den fazla gül çeşidi bulunur ve her renk farklı bir anlam taşır.',
+      season: 'İlkbahar – Yaz',
+      difficulty: 'Orta',
+      sunlight: 'Tam güneş',
+      water: 'Düzenli',
+      bloom: 'Mayıs – Ekim',
+      color: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+      tips: ['Sabah erken saatte sulayın.', 'Solmuş çiçekleri düzenli budayın.', 'Kış aylarında köklerini koruyun.'],
+      tags: ['romantik', 'klasik', 'kokulu']
+    },
+    {
+      id: 'lale',
+      name: 'Lale',
+      emoji: '🌷',
+      latin: 'Tulipa',
+      desc: 'Osmanlı zarafetinin ve baharın müjdecisi.',
+      fullDesc: 'Lale, Osmanlı İmparatorluğu döneminde kültürel bir simge olmuş ve "Lale Devri" adıyla bir döneme adını vermiştir. Hollanda\'da büyük bir ekonomik çılgınlığa yol açmıştır.',
+      season: 'İlkbahar',
+      difficulty: 'Kolay',
+      sunlight: 'Tam güneş',
+      water: 'Az',
+      bloom: 'Mart – Mayıs',
+      color: 'linear-gradient(135deg, #fd79a8, #e84393)',
+      tips: ['Soğanları sonbaharda dikin.', 'İyi drene olan toprak kullanın.', 'Soğuk kış geçirmesi gerekir.'],
+      tags: ['zarif', 'bahar', 'osmanlı']
+    },
+    {
+      id: 'papatya',
+      name: 'Papatya',
+      emoji: '🌼',
+      latin: 'Bellis perennis',
+      desc: 'Masumiyetin ve sadeliğin simgesi.',
+      fullDesc: 'Papatya, dünyanın en yaygın çiçeklerinden biridir. Hem süs bitkisi hem de şifalı bitki olarak kullanılır. Papatya çayı rahatlatıcı etkisiyle bilinir.',
+      season: 'İlkbahar – Yaz',
+      difficulty: 'Çok Kolay',
+      sunlight: 'Tam güneş / Yarı gölge',
+      water: 'Az',
+      bloom: 'Nisan – Eylül',
+      color: 'linear-gradient(135deg, #ffeaa7, #fdcb6e)',
+      tips: ['Hemen her yerde yetişir.', 'Fazla sulamadan kaçının.', 'Tohumlarını rüzgâr taşır.'],
+      tags: ['sade', 'doğal', 'şifalı']
+    },
+    {
+      id: 'aycicegi',
+      name: 'Ayçiçeği',
+      emoji: '🌻',
+      latin: 'Helianthus annuus',
+      desc: 'Güneşi takip eden neşeli dev.',
+      fullDesc: 'Ayçiçeği, güneşe doğru dönen yapısıyla (heliotropizm) ünlüdür. Tohumları hem besleyici bir atıştırmalık hem de yağ üretiminde kullanılır.',
+      season: 'Yaz',
+      difficulty: 'Kolay',
+      sunlight: 'Tam güneş',
+      water: 'Düzenli',
+      bloom: 'Haziran – Eylül',
+      color: 'linear-gradient(135deg, #f9ca24, #f0932b)',
+      tips: ['Bol güneş alan yere dikin.', 'Uzun boylanır, destek çubuğu kullanın.', 'Tohumları kurutup saklayın.'],
+      tags: ['neşeli', 'büyük', 'yenilebilir']
+    },
+    {
+      id: 'lavanta',
+      name: 'Lavanta',
+      emoji: '🪻',
+      latin: 'Lavandula',
+      desc: 'Huzurun ve sakinliğin mor güzeli.',
+      fullDesc: 'Lavanta, etkileyici kokusu ve mor rengiyle bahçelerin vazgeçilmezidir. Aromaterapi, kozmetik ve mutfakta geniş kullanım alanı bulur.',
+      season: 'Yaz',
+      difficulty: 'Kolay',
+      sunlight: 'Tam güneş',
+      water: 'Az',
+      bloom: 'Haziran – Ağustos',
+      color: 'linear-gradient(135deg, #a29bfe, #6c5ce7)',
+      tips: ['Kuru ve taşlı toprakları sever.', 'Aşırı sulamadan kaçının.', 'Çiçekleri kurutarak poşelerde kullanın.'],
+      tags: ['aromatik', 'mor', 'rahatlatıcı']
+    },
+    {
+      id: 'orkide',
+      name: 'Orkide',
+      emoji: '🌺',
+      latin: 'Orchidaceae',
+      desc: 'Egzotik güzelliğin ve zarafetin kralı.',
+      fullDesc: 'Orkide, 25.000\'den fazla türüyle dünyanın en büyük çiçekli bitki ailesidir. Her kıtada doğal olarak yetişir ve eşsiz çiçek formlarıyla büyüler.',
+      season: 'Tüm yıl (iç mekân)',
+      difficulty: 'Zor',
+      sunlight: 'Dolaylı ışık',
+      water: 'Az – Orta',
+      bloom: 'Tüm yıl',
+      color: 'linear-gradient(135deg, #fd79a8, #e056a0)',
+      tips: ['Doğrudan güneşten koruyun.', 'Köklerinin hava almasını sağlayın.', 'Haftada bir buz küpüyle sulayın.'],
+      tags: ['egzotik', 'zarif', 'iç mekân']
+    },
+    {
+      id: 'sumbul',
+      name: 'Sümbül',
+      emoji: '💜',
+      latin: 'Hyacinthus',
+      desc: 'Baharın kokulu habercisi.',
+      fullDesc: 'Sümbül, yoğun ve tatlı kokusuyla baharın gelişini müjdeler. Soğanlı bir bitki olup özellikle saksıda yetiştirmeye çok uygundur.',
+      season: 'İlkbahar',
+      difficulty: 'Kolay',
+      sunlight: 'Tam güneş / Yarı gölge',
+      water: 'Orta',
+      bloom: 'Mart – Nisan',
+      color: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+      tips: ['Soğanları sonbaharda dikin.', 'Soğuk kışlamaya ihtiyaç duyar.', 'Saksıda da güzel yetişir.'],
+      tags: ['kokulu', 'soğanlı', 'bahar']
+    },
+    {
+      id: 'sakura',
+      name: 'Sakura',
+      emoji: '🌸',
+      latin: 'Prunus serrulata',
+      desc: 'Japon kültürünün pembe hazinesi.',
+      fullDesc: 'Sakura (kiraz çiçeği), Japonya\'nın ulusal çiçeğidir. Kısa ömürlü çiçeklenmesiyle hayatın geçiciliğini ve güzelliğini simgeler.',
+      season: 'İlkbahar',
+      difficulty: 'Orta',
+      sunlight: 'Tam güneş',
+      water: 'Düzenli',
+      bloom: 'Mart – Nisan',
+      color: 'linear-gradient(135deg, #ffc0cb, #ff69b4)',
+      tips: ['Geniş alana ihtiyaç duyar.', 'İlk yıllarda düzenli sulayın.', 'Budama ile şekil verin.'],
+      tags: ['japon', 'pembe', 'ağaç']
+    },
+    {
+      id: 'kamelya',
+      name: 'Kamelya',
+      emoji: '🌺',
+      latin: 'Camellia japonica',
+      desc: 'Kışın açan zarif güzel.',
+      fullDesc: 'Kamelya, kış aylarında çiçek açan nadir bitkilerdendir. Parlak yaprakları ve mükemmel simetrili çiçekleriyle bahçelerde göz kamaştırır.',
+      season: 'Kış – İlkbahar',
+      difficulty: 'Orta',
+      sunlight: 'Yarı gölge',
+      water: 'Düzenli',
+      bloom: 'Ocak – Mart',
+      color: 'linear-gradient(135deg, #ff6348, #ee5a24)',
+      tips: ['Asidik toprak sever.', 'Rüzgârdan korunaklı yere dikin.', 'Kireçli sudan kaçının.'],
+      tags: ['kış', 'zarif', 'yaprak dökmeyen']
+    },
+    {
+      id: 'nergis',
+      name: 'Nergis',
+      emoji: '🌼',
+      latin: 'Narcissus',
+      desc: 'Baharın altın sarısı trompeti.',
+      fullDesc: 'Nergis, baharın en erken çiçek açan bitkilerinden biridir. Yunan mitolojisindeki Narkissos efsanesinden adını alır. Soğanlı ve dayanıklı bir bitkidir.',
+      season: 'İlkbahar',
+      difficulty: 'Çok Kolay',
+      sunlight: 'Tam güneş / Yarı gölge',
+      water: 'Az',
+      bloom: 'Şubat – Nisan',
+      color: 'linear-gradient(135deg, #feca57, #ff9f43)',
+      tips: ['Soğanları gruplar halinde dikin.', 'Yaprakları doğal olarak solmaya bırakın.', 'Her yıl çoğalır.'],
+      tags: ['bahar', 'sarı', 'mitolojik']
+    },
+    {
+      id: 'kadife',
+      name: 'Kadife Çiçeği',
+      emoji: '🧡',
+      latin: 'Tagetes',
+      desc: 'Bahçenin turuncu koruyucusu.',
+      fullDesc: 'Kadife çiçeği, canlı turuncu ve sarı tonlarıyla bahçelere renk katar. Zararlı böcekleri uzaklaştırma özelliğiyle doğal bir bahçe koruyucusudur.',
+      season: 'Yaz – Sonbahar',
+      difficulty: 'Çok Kolay',
+      sunlight: 'Tam güneş',
+      water: 'Orta',
+      bloom: 'Haziran – Kasım',
+      color: 'linear-gradient(135deg, #f39c12, #e67e22)',
+      tips: ['Sebze bahçesine yakın dikin.', 'Solmuş çiçekleri koparın.', 'Tohumdan kolayca yetişir.'],
+      tags: ['koruyucu', 'turuncu', 'dayanıklı']
+    },
+    {
+      id: 'kardelen',
+      name: 'Kardelen',
+      emoji: '❄️',
+      latin: 'Galanthus',
+      desc: 'Karların arasından yükselen umut.',
+      fullDesc: 'Kardelen, kışın sonunda karların arasından çiçek açarak baharın müjdesini verir. Küçük beyaz çiçekleriyle umudun ve yeniden doğuşun simgesidir.',
+      season: 'Kış sonu – İlkbahar',
+      difficulty: 'Kolay',
+      sunlight: 'Yarı gölge',
+      water: 'Az',
+      bloom: 'Şubat – Mart',
+      color: 'linear-gradient(135deg, #dfe6e9, #b2bec3)',
+      tips: ['Ağaç altlarına dikin.', 'Doğal ortamından koparmayın.', 'Gruplar halinde daha güzel görünür.'],
+      tags: ['kış', 'beyaz', 'umut']
+    },
+    {
+      id: 'zambak',
+      name: 'Zambak',
+      emoji: '🪷',
+      latin: 'Lilium',
+      desc: 'Saflığın ve asaletin çiçeği.',
+      fullDesc: 'Zambak, gösterişli çiçekleri ve güçlü kokusuyla asaletin simgesidir. Düğünlerde ve özel günlerde en çok tercih edilen çiçeklerden biridir.',
+      season: 'Yaz',
+      difficulty: 'Orta',
+      sunlight: 'Tam güneş / Yarı gölge',
+      water: 'Düzenli',
+      bloom: 'Haziran – Ağustos',
+      color: 'linear-gradient(135deg, #ffffff, #ffeaa7)',
+      tips: ['Derin saksılarda yetiştirin.', 'Soğanları nemli tutun ama ıslatmayın.', 'Yaprak bitlerinden koruyun.'],
+      tags: ['asil', 'kokulu', 'düğün']
+    },
+    {
+      id: 'ortanca',
+      name: 'Ortanca',
+      emoji: '💐',
+      latin: 'Hydrangea',
+      desc: 'Toprak pH\'ına göre renk değiştiren sihirbaz.',
+      fullDesc: 'Ortanca, toprağın asitlik düzeyine göre mavi, pembe veya mor çiçekler açan büyüleyici bir bitkidir. Büyük çiçek kümeleriyle bahçelere ihtişam katar.',
+      season: 'Yaz',
+      difficulty: 'Orta',
+      sunlight: 'Yarı gölge',
+      water: 'Bol',
+      bloom: 'Haziran – Eylül',
+      color: 'linear-gradient(135deg, #74b9ff, #a29bfe)',
+      tips: ['Asidik toprakta mavi, bazik toprakta pembe açar.', 'Sabah güneşi, öğleden sonra gölge ideal.', 'Bol su verin ama su birikintisi olmasın.'],
+      tags: ['renkli', 'gösterişli', 'gölge']
+    },
+    {
+      id: 'sardunya',
+      name: 'Sardunya',
+      emoji: '🌺',
+      latin: 'Pelargonium',
+      desc: 'Balkonların ve pencerelerin neşesi.',
+      fullDesc: 'Sardunya, kolay bakımı ve uzun çiçeklenme dönemiyle balkon ve pencere bahçeciliğinin vazgeçilmez bitkisidir. Kırmızı, pembe, beyaz ve mor gibi pek çok renkte bulunur.',
+      season: 'İlkbahar – Sonbahar',
+      difficulty: 'Çok Kolay',
+      sunlight: 'Tam güneş',
+      water: 'Orta',
+      bloom: 'Mayıs – Ekim',
+      color: 'linear-gradient(135deg, #e74c3c, #c0392b)',
+      tips: ['Saksıda mükemmel yetişir.', 'Fazla sulamayın, kök çürümesine dikkat.', 'Solmuş yaprakları temizleyin.'],
+      tags: ['balkon', 'kolay', 'renkli']
+    },
+    {
+      id: 'menekse',
+      name: 'Menekşe',
+      emoji: '💜',
+      latin: 'Viola odorata',
+      desc: 'Alçakgönüllülüğün mor güzeli.',
+      fullDesc: 'Menekşe, mütevazı görünümü ve tatlı kokusuyla sevilen bir çiçektir. Hem süs bitkisi hem de yenilebilir çiçek olarak kullanılır. Osmanlı mutfağında şerbet yapımında tercih edilmiştir.',
+      season: 'İlkbahar',
+      difficulty: 'Kolay',
+      sunlight: 'Yarı gölge',
+      water: 'Orta',
+      bloom: 'Mart – Mayıs',
+      color: 'linear-gradient(135deg, #8e44ad, #9b59b6)',
+      tips: ['Gölgelik alanları tercih edin.', 'Nemli toprakta mutlu olur.', 'Yenilebilir çiçekleri salatalara ekleyin.'],
+      tags: ['mütevazı', 'yenilebilir', 'gölge']
     }
-});
+  ];
 
-// ===== MOBILE NAV TOGGLE =====
-navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-});
+  // ----------------------------------------------------------
+  // 2. PALETTE FLOWERS (12 items)
+  // ----------------------------------------------------------
+  const paletteFlowers = [
+    { emoji: '🌹', name: 'Gül' },
+    { emoji: '🌷', name: 'Lale' },
+    { emoji: '🌼', name: 'Papatya' },
+    { emoji: '🌻', name: 'Ayçiçeği' },
+    { emoji: '🪻', name: 'Lavanta' },
+    { emoji: '🌺', name: 'Orkide' },
+    { emoji: '🌸', name: 'Sakura' },
+    { emoji: '💜', name: 'Sümbül' },
+    { emoji: '🪷', name: 'Zambak' },
+    { emoji: '❄️', name: 'Kardelen' },
+    { emoji: '🧡', name: 'Kadife' },
+    { emoji: '💐', name: 'Ortanca' }
+  ];
 
-// Close nav on link click
-navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
+  // ----------------------------------------------------------
+  // 3. DARK MODE
+  // ----------------------------------------------------------
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlEl = document.documentElement;
+
+  // Restore saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (themeToggle) themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', next);
+      showToast(next === 'dark' ? '🌙 Gece modu aktif' : '☀️ Gündüz modu aktif');
     });
-});
+  }
 
-// ===== RENDER FLOWER CARDS =====
-function renderFlowerCards(filter = 'all') {
-    const filtered = filter === 'all' ? flowers : flowers.filter(f => f.tags.includes(filter));
+  // ----------------------------------------------------------
+  // 4. DAILY FLOWER
+  // ----------------------------------------------------------
+  function getDayOfYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  }
 
-    flowersGrid.innerHTML = filtered.map(flower => `
-        <div class="flower-card" data-id="${flower.id}" data-season="${flower.season}">
-            <div class="flower-card-visual" style="background: ${flower.color};">
-                <div class="flower-bg-pattern">
-                    ${flower.emoji.repeat(12)}
-                </div>
-                <span class="flower-emoji">${flower.emoji}</span>
-            </div>
-            <div class="flower-card-body">
-                <h3 class="flower-card-name">${flower.name}</h3>
-                <p class="flower-card-latin">${flower.latin}</p>
-                <p class="flower-card-desc">${flower.desc}</p>
-                <div class="flower-card-meta">
-                    <span class="flower-tag season-${flower.season === 'yaz' ? 'summer' : flower.season === 'ilkbahar' ? 'spring' : flower.season === 'sonbahar' ? 'autumn' : 'winter'}">${flower.season === 'kislik' ? 'Kışa Dayanıklı' : flower.season.charAt(0).toUpperCase() + flower.season.slice(1)}</span>
-                    <span class="flower-tag difficulty-${flower.difficulty === 'Kolay' ? 'easy' : flower.difficulty === 'Orta' ? 'medium' : 'hard'}">${flower.difficulty}</span>
-                </div>
-            </div>
-        </div>
-    `).join('');
+  function initDailyFlower() {
+    const dayIndex = getDayOfYear() % flowers.length;
+    const flower = flowers[dayIndex];
 
-    // Re-init scroll animations for new cards
-    setTimeout(() => {
-        initScrollAnimations();
-    }, 100);
+    const emojiEl = document.getElementById('dailyFlowerEmoji');
+    const nameEl = document.getElementById('dailyFlowerName');
+    const descEl = document.getElementById('dailyFlowerDesc');
+    const factsEl = document.getElementById('dailyFlowerFacts');
+    const visualEl = document.getElementById('dailyFlowerVisual');
 
-    // Add click event
-    document.querySelectorAll('.flower-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const id = parseInt(card.dataset.id);
-            openFlowerModal(id);
+    if (emojiEl) emojiEl.textContent = flower.emoji;
+    if (nameEl) nameEl.textContent = flower.name;
+    if (descEl) descEl.textContent = flower.fullDesc;
+    if (factsEl) {
+      factsEl.innerHTML = `
+        <span>📅 <strong>Mevsim:</strong> ${flower.season}</span>
+        <span>☀️ <strong>Güneş:</strong> ${flower.sunlight}</span>
+        <span>💧 <strong>Su:</strong> ${flower.water}</span>
+        <span>🌱 <strong>Zorluk:</strong> ${flower.difficulty}</span>
+      `;
+    }
+    if (visualEl) visualEl.style.background = flower.color;
+  }
+
+  initDailyFlower();
+
+  // ----------------------------------------------------------
+  // 5. QUIZ – 'Sen Hangi Çiçeksin?'
+  // ----------------------------------------------------------
+  const quizQuestions = [
+    {
+      question: 'Hafta sonu için ideal planın hangisi?',
+      options: [
+        { text: 'Romantik bir akşam yemeği', type: 'gul' },
+        { text: 'Lavanta tarlalarında yürüyüş', type: 'lavanta' },
+        { text: 'Güneşli bir piknik', type: 'aycicegi' },
+        { text: 'Kitap okuyarak huzurlu bir gün', type: 'papatya' }
+      ]
+    },
+    {
+      question: 'Hangi renk seni en iyi yansıtır?',
+      options: [
+        { text: 'Tutkulu kırmızı', type: 'gul' },
+        { text: 'Huzurlu mor', type: 'lavanta' },
+        { text: 'Enerjik sarı', type: 'aycicegi' },
+        { text: 'Gizemli pembe', type: 'orkide' }
+      ]
+    },
+    {
+      question: 'Arkadaşların seni nasıl tanımlar?',
+      options: [
+        { text: 'Romantik ve duygusal', type: 'gul' },
+        { text: 'Sakin ve bilge', type: 'lavanta' },
+        { text: 'Neşeli ve enerjik', type: 'aycicegi' },
+        { text: 'Sade ve samimi', type: 'papatya' }
+      ]
+    },
+    {
+      question: 'Favori mevsimin hangisi?',
+      options: [
+        { text: 'İlkbahar – yeni başlangıçlar', type: 'papatya' },
+        { text: 'Yaz – sıcak günler', type: 'aycicegi' },
+        { text: 'Sonbahar – huzurlu renkler', type: 'lavanta' },
+        { text: 'Kış – romantik akşamlar', type: 'gul' }
+      ]
+    },
+    {
+      question: 'Hayatta en çok neye değer verirsin?',
+      options: [
+        { text: 'Aşk ve tutku', type: 'gul' },
+        { text: 'İç huzur ve denge', type: 'lavanta' },
+        { text: 'Özgürlük ve macera', type: 'aycicegi' },
+        { text: 'Zarafet ve estetik', type: 'orkide' }
+      ]
+    }
+  ];
+
+  const quizResults = {
+    gul: { emoji: '🌹', name: 'Gül', desc: 'Sen bir Gülsün! Romantik, tutkulu ve çevrendeki insanlara ilham veriyorsun. Aşkın ve güzelliğin simgesisin.' },
+    lavanta: { emoji: '🪻', name: 'Lavanta', desc: 'Sen bir Lavantasın! Sakin, huzurlu ve bilgesin. Yanında olan herkes kendini rahat hisseder.' },
+    aycicegi: { emoji: '🌻', name: 'Ayçiçeği', desc: 'Sen bir Ayçiçeğisin! Neşeli, enerjik ve iyimsersin. Gittiğin her yere güneş gibi ışık saçarsın.' },
+    papatya: { emoji: '🌼', name: 'Papatya', desc: 'Sen bir Papatyasın! Sade, samimi ve doğalsın. Herkesin güvenip sevdiği bir insansın.' },
+    orkide: { emoji: '🌺', name: 'Orkide', desc: 'Sen bir Orkidesin! Zarif, gizemli ve benzersizsin. Eşsiz güzelliğinle herkesi büyülersin.' }
+  };
+
+  let currentQuestion = 0;
+  let quizAnswers = [];
+
+  const quizBox = document.getElementById('quizBox');
+  const quizQuestionEl = document.getElementById('quizQuestion');
+  const quizOptionsEl = document.getElementById('quizOptions');
+  const quizProgressEl = document.getElementById('quizProgress');
+  const quizResultEl = document.getElementById('quizResult');
+  const resultEmojiEl = document.getElementById('resultEmoji');
+  const resultNameEl = document.getElementById('resultName');
+  const resultDescEl = document.getElementById('resultDesc');
+  const restartQuizBtn = document.getElementById('restartQuizBtn');
+
+  function renderQuiz() {
+    if (!quizBox) return;
+    const q = quizQuestions[currentQuestion];
+    if (quizQuestionEl) quizQuestionEl.textContent = q.question;
+    if (quizOptionsEl) {
+      quizOptionsEl.innerHTML = '';
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt.text;
+        btn.addEventListener('click', () => {
+          quizAnswers.push(opt.type);
+          currentQuestion++;
+          if (currentQuestion < quizQuestions.length) {
+            renderQuiz();
+          } else {
+            showQuizResult();
+          }
         });
-    });
-}
+        quizOptionsEl.appendChild(btn);
+      });
+    }
+    if (quizProgressEl) {
+      const pct = ((currentQuestion) / quizQuestions.length) * 100;
+      quizProgressEl.style.width = pct + '%';
+    }
+  }
 
-// ===== FILTER BUTTONS =====
-document.querySelectorAll('.filter-btn').forEach(btn => {
+  function showQuizResult() {
+    if (quizQuestionEl) quizQuestionEl.style.display = 'none';
+    if (quizOptionsEl) quizOptionsEl.style.display = 'none';
+
+    // Count types
+    const counts = {};
+    quizAnswers.forEach(t => counts[t] = (counts[t] || 0) + 1);
+    const winner = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+    const result = quizResults[winner];
+
+    if (quizProgressEl) quizProgressEl.style.width = '100%';
+    if (resultEmojiEl) resultEmojiEl.textContent = result.emoji;
+    if (resultNameEl) resultNameEl.textContent = result.name;
+    if (resultDescEl) resultDescEl.textContent = result.desc;
+    if (quizResultEl) quizResultEl.style.display = 'block';
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    quizAnswers = [];
+    if (quizQuestionEl) quizQuestionEl.style.display = '';
+    if (quizOptionsEl) quizOptionsEl.style.display = '';
+    if (quizResultEl) quizResultEl.style.display = 'none';
+    renderQuiz();
+  }
+
+  if (restartQuizBtn) restartQuizBtn.addEventListener('click', restartQuiz);
+  renderQuiz();
+
+  // ----------------------------------------------------------
+  // 6. FLOWER CARDS
+  // ----------------------------------------------------------
+  const cardsContainer = document.getElementById('flowerCards');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+
+  function renderFlowerCards(filter = 'all') {
+    if (!cardsContainer) return;
+    cardsContainer.innerHTML = '';
+    const filtered = filter === 'all'
+      ? flowers
+      : flowers.filter(f => f.tags.includes(filter) || f.season.toLowerCase().includes(filter) || f.difficulty.toLowerCase().includes(filter));
+
+    filtered.forEach(flower => {
+      const card = document.createElement('div');
+      card.className = 'flower-card';
+      card.style.setProperty('--card-gradient', flower.color);
+      card.innerHTML = `
+        <div class="flower-card-visual" style="background:${flower.color}">
+          <span class="flower-card-emoji">${flower.emoji}</span>
+        </div>
+        <div class="flower-card-info">
+          <h3>${flower.name}</h3>
+          <p class="flower-card-latin">${flower.latin}</p>
+          <p>${flower.desc}</p>
+          <div class="flower-card-tags">
+            ${flower.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(flower));
+      cardsContainer.appendChild(card);
+    });
+  }
+
+  filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelector('.filter-btn.active').classList.remove('active');
-        btn.classList.add('active');
-        renderFlowerCards(btn.dataset.filter);
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderFlowerCards(btn.dataset.filter || 'all');
     });
-});
+  });
 
-// ===== FLOWER MODAL =====
-function openFlowerModal(id) {
-    const flower = flowers.find(f => f.id === id);
-    if (!flower) return;
+  renderFlowerCards();
 
-    modalBody.innerHTML = `
-        <div class="modal-flower-header" style="background: ${flower.color};">
-            <span class="modal-flower-emoji">${flower.emoji}</span>
-        </div>
-        <div class="modal-flower-info">
-            <h2>${flower.name}</h2>
-            <span class="latin-name">${flower.latin}</span>
-            <p class="description">${flower.fullDesc}</p>
-            <div class="modal-details-grid">
-                <div class="modal-detail">
-                    <div class="modal-detail-label">Mevsim</div>
-                    <div class="modal-detail-value">${flower.bloom}</div>
-                </div>
-                <div class="modal-detail">
-                    <div class="modal-detail-label">Güneş</div>
-                    <div class="modal-detail-value">${flower.sunlight}</div>
-                </div>
-                <div class="modal-detail">
-                    <div class="modal-detail-label">Sulama</div>
-                    <div class="modal-detail-value">${flower.water}</div>
-                </div>
-                <div class="modal-detail">
-                    <div class="modal-detail-label">Zorluk</div>
-                    <div class="modal-detail-value">${flower.difficulty}</div>
-                </div>
-            </div>
-            <div class="modal-care-tips">
-                <h4>🌿 Bakım İpuçları</h4>
-                <ul>
-                    ${flower.tips.map(tip => `<li>${tip}</li>`).join('')}
-                </ul>
-            </div>
-        </div>
-    `;
+  // ----------------------------------------------------------
+  // 7. INTERACTIVE GARDEN WITH TOUCH SUPPORT
+  // ----------------------------------------------------------
+  const gardenCanvas = document.getElementById('gardenCanvas');
+  const plantedCountEl = document.getElementById('plantedCount');
+  const clearGardenBtn = document.getElementById('clearGardenBtn');
+  const gardenPalette = document.getElementById('gardenPalette');
 
-    flowerModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+  let selectedPaletteFlower = paletteFlowers[0];
+  let plantedFlowers = [];
+  let plantedCountNum = 0;
 
-modalClose.addEventListener('click', closeModal);
-flowerModal.addEventListener('click', (e) => {
-    if (e.target === flowerModal) closeModal();
-});
-
-function closeModal() {
-    flowerModal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-});
-
-// ===== RENDER PALETTE =====
-function renderPalette() {
-    paletteItems.innerHTML = paletteFlowers.map((flower, i) => `
-        <div class="palette-item" data-index="${i}" data-emoji="${flower.emoji}">
-            <span class="p-emoji">${flower.emoji}</span>
-            <span class="p-name">${flower.name}</span>
-        </div>
-    `).join('');
-
-    document.querySelectorAll('.palette-item').forEach(item => {
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.palette-item').forEach(p => p.classList.remove('selected'));
-            item.classList.add('selected');
-            selectedPaletteFlower = item.dataset.emoji;
-        });
+  // Build palette
+  if (gardenPalette) {
+    paletteFlowers.forEach((pf, i) => {
+      const item = document.createElement('button');
+      item.className = 'palette-item' + (i === 0 ? ' active' : '');
+      item.innerHTML = `<span class="palette-emoji">${pf.emoji}</span><span class="palette-name">${pf.name}</span>`;
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.palette-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        selectedPaletteFlower = pf;
+      });
+      gardenPalette.appendChild(item);
     });
-}
+  }
 
-// ===== GARDEN PLANTING =====
-let justDragged = false; // Prevent planting after drag
+  // Plant flower on canvas click / tap
+  if (gardenCanvas) {
+    gardenCanvas.addEventListener('click', (e) => {
+      if (e.target !== gardenCanvas) return; // don't plant on existing flowers
+      const rect = gardenCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      plantFlower(x, y);
+    });
 
-gardenCanvas.addEventListener('click', (e) => {
-    // Don't plant if we just finished dragging
-    if (justDragged) {
-        justDragged = false;
-        return;
-    }
+    // Also handle tap on canvas (for mobile, when target is the canvas itself)
+    gardenCanvas.addEventListener('touchend', (e) => {
+      // Only plant if directly tapping canvas (not a flower)
+      // Planting is handled via click for simplicity, touchend here is a fallback
+    });
+  }
 
-    // Don't plant if clicking on an existing flower
-    if (e.target.closest('.planted-flower')) return;
+  function plantFlower(x, y) {
+    const el = document.createElement('div');
+    el.className = 'planted-flower';
+    el.textContent = selectedPaletteFlower.emoji;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.touchAction = 'none'; // prevent scroll on touch
+    el.title = selectedPaletteFlower.name;
 
-    if (!selectedPaletteFlower) {
-        showToast('Önce bir çiçek seçin! 🌸');
-        return;
-    }
-
-    const rect = gardenCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Only plant on the ground area (bottom 60%)
-    if (y < rect.height * 0.35) {
-        showToast('Çiçekler toprağa dikilir! Yeşil alana tıklayın 🌱');
-        return;
-    }
-
-    plantFlower(x, y);
-});
-
-function plantFlower(x, y) {
-    const flower = document.createElement('div');
-    flower.className = 'planted-flower';
-    flower.textContent = selectedPaletteFlower;
-
-    // Random size variation
-    const scale = 0.8 + Math.random() * 0.6;
-    flower.style.left = `${x - 16}px`;
-    flower.style.top = `${y - 16}px`;
-    flower.style.fontSize = `${scale * 2}rem`;
-
-    // Add stem for plant-like emojis
-    const plantEmojis = ['🌹', '🌷', '🌼', '🌻', '🪻', '🌺', '🌸', '🪷', '💮', '🌾'];
-    if (plantEmojis.includes(selectedPaletteFlower)) {
-        const stem = document.createElement('div');
-        stem.className = 'stem';
-        stem.style.height = `${10 + Math.random() * 15}px`;
-        flower.appendChild(stem);
-    }
-
-    gardenPlantedArea.appendChild(flower);
-
-    // Update count
-    plantedFlowers++;
-    plantedCount.textContent = plantedFlowers;
-
-    // Hide instructions
-    gardenInstructions.classList.add('hidden');
-
-    // Show toast
-    const messages = [
-        `${selectedPaletteFlower} dikildi!`,
-        `Güzel bir ${selectedPaletteFlower}! Bahçen büyüyor!`,
-        `Harika! ${selectedPaletteFlower} yerine yerleşti!`,
-        `${selectedPaletteFlower} toprağa kavuştu! 🌱`,
-    ];
-    showToast(messages[Math.floor(Math.random() * messages.length)]);
-
-    // Make draggable + deletable
-    makeDraggable(flower);
-    makeDeleteable(flower);
-}
-
-function makeDraggable(el) {
+    // Drag state
     let isDragging = false;
-    let hasMoved = false;
-    let startX, startY, origX, origY;
+    let justDragged = false;
+    let startX, startY, origLeft, origTop;
 
+    // --- MOUSE DRAG ---
     el.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        hasMoved = false;
-        el.style.cursor = 'grabbing';
-        el.style.zIndex = 25;
-        startX = e.clientX;
-        startY = e.clientY;
-        origX = el.offsetLeft;
-        origY = el.offsetTop;
-        e.preventDefault();
-        e.stopPropagation();
-    });
+      e.preventDefault();
+      isDragging = false;
+      justDragged = false;
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = parseInt(el.style.left);
+      origTop = parseInt(el.style.top);
+      el.style.zIndex = '100';
+      el.style.cursor = 'grabbing';
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-
-        // Only count as "moved" if dragged more than 5px (prevents accidental micro-drags)
+      const onMouseMove = (ev) => {
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
         if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
-            hasMoved = true;
+          isDragging = true;
         }
-
-        el.style.left = `${origX + dx}px`;
-        el.style.top = `${origY + dy}px`;
-    });
-
-    document.addEventListener('mouseup', () => {
         if (isDragging) {
-            isDragging = false;
-            el.style.cursor = 'grab';
-            el.style.zIndex = 15;
-
-            // If we actually moved, set flag so canvas click doesn't plant a new flower
-            if (hasMoved) {
-                justDragged = true;
-                // Reset the flag after a short delay in case click event fires
-                setTimeout(() => { justDragged = false; }, 100);
-            }
+          el.style.left = (origLeft + dx) + 'px';
+          el.style.top = (origTop + dy) + 'px';
         }
-    });
-}
+      };
 
-function makeDeleteable(el) {
+      const onMouseUp = () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        el.style.zIndex = '';
+        el.style.cursor = 'grab';
+        if (isDragging) {
+          justDragged = true;
+          setTimeout(() => { justDragged = false; }, 300);
+        }
+      };
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    // --- TOUCH DRAG ---
+    el.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // prevent scroll
+      isDragging = false;
+      const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      origLeft = parseInt(el.style.left);
+      origTop = parseInt(el.style.top);
+      el.style.zIndex = '100';
+
+      const onTouchMove = (ev) => {
+        ev.preventDefault();
+        const t = ev.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+          isDragging = true;
+        }
+        if (isDragging) {
+          el.style.left = (origLeft + dx) + 'px';
+          el.style.top = (origTop + dy) + 'px';
+        }
+      };
+
+      const onTouchEnd = () => {
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchend', onTouchEnd);
+        el.style.zIndex = '';
+        if (isDragging) {
+          justDragged = true;
+          setTimeout(() => { justDragged = false; }, 300);
+        } else {
+          // Check for double tap
+          const now = Date.now();
+          if (el._lastTapTime && (now - el._lastTapTime < 300)) {
+            removeFlower(el);
+            return;
+          }
+          el._lastTapTime = now;
+        }
+      };
+
+      document.addEventListener('touchmove', onTouchMove, { passive: false });
+      document.addEventListener('touchend', onTouchEnd);
+    }, { passive: false });
+
+    // --- DOUBLE CLICK DELETE (desktop) ---
     el.addEventListener('dblclick', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Add a shrink animation before removing
-        el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-        el.style.transform = 'scale(0)';
-        el.style.opacity = '0';
-
-        setTimeout(() => {
-            el.remove();
-            plantedFlowers--;
-            if (plantedFlowers < 0) plantedFlowers = 0;
-            plantedCount.textContent = plantedFlowers;
-
-            // Show instructions again if garden is empty
-            if (plantedFlowers === 0) {
-                gardenInstructions.classList.remove('hidden');
-            }
-        }, 300);
-
-        showToast('Çiçek söküldü! 🗑️');
+      e.stopPropagation();
+      if (!justDragged) {
+        removeFlower(el);
+      }
     });
-}
 
-// ===== CLEAR GARDEN =====
-clearGarden.addEventListener('click', () => {
-    gardenPlantedArea.innerHTML = '';
-    plantedFlowers = 0;
-    plantedCount.textContent = 0;
-    gardenInstructions.classList.remove('hidden');
-    showToast('Bahçe temizlendi! Yeni bir başlangıç 🌱');
-});
+    // Entrance animation
+    el.style.transform = 'scale(0)';
+    el.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    gardenCanvas.appendChild(el);
+    plantedFlowers.push(el);
+    plantedCountNum++;
+    updatePlantedCount();
 
-// ===== SAVE GARDEN =====
-saveGarden.addEventListener('click', () => {
-    showToast('Bahçen kaydedildi! 📸✨');
-});
+    requestAnimationFrame(() => {
+      el.style.transform = 'scale(1)';
+    });
+  }
 
-// ===== TOAST =====
-function showToast(message) {
-    toastMessage.textContent = message;
-    toast.classList.add('show');
+  function removeFlower(el) {
+    el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+    el.style.transform = 'scale(0)';
+    el.style.opacity = '0';
     setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2500);
-}
+      if (el.parentNode) el.parentNode.removeChild(el);
+      plantedFlowers = plantedFlowers.filter(f => f !== el);
+      plantedCountNum--;
+      if (plantedCountNum < 0) plantedCountNum = 0;
+      updatePlantedCount();
+    }, 300);
+  }
 
+  function updatePlantedCount() {
+    if (plantedCountEl) plantedCountEl.textContent = plantedCountNum;
+  }
 
-
-// ===== SCROLL ANIMATIONS =====
-function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.flower-card, .tip-card, .season-card, .gallery-item').forEach(el => {
-        observer.observe(el);
+  // Clear garden
+  if (clearGardenBtn) {
+    clearGardenBtn.addEventListener('click', () => {
+      plantedFlowers.forEach(el => {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      });
+      plantedFlowers = [];
+      plantedCountNum = 0;
+      updatePlantedCount();
+      showToast('🧹 Bahçe temizlendi!');
     });
-}
+  }
 
-// ===== COUNTER ANIMATION =====
-function initCounterAnimation() {
+  // ----------------------------------------------------------
+  // 8. MODAL
+  // ----------------------------------------------------------
+  const modal = document.getElementById('flowerModal');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalClose = document.getElementById('modalClose');
+  const modalEmoji = document.getElementById('modalEmoji');
+  const modalName = document.getElementById('modalName');
+  const modalLatin = document.getElementById('modalLatin');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalDetails = document.getElementById('modalDetails');
+  const modalTips = document.getElementById('modalTips');
+
+  function openModal(flower) {
+    if (!modal) return;
+    if (modalEmoji) modalEmoji.textContent = flower.emoji;
+    if (modalName) modalName.textContent = flower.name;
+    if (modalLatin) modalLatin.textContent = flower.latin;
+    if (modalDesc) modalDesc.textContent = flower.fullDesc;
+    if (modalDetails) {
+      modalDetails.innerHTML = `
+        <div class="detail-item"><span class="detail-label">📅 Mevsim</span><span>${flower.season}</span></div>
+        <div class="detail-item"><span class="detail-label">🌱 Zorluk</span><span>${flower.difficulty}</span></div>
+        <div class="detail-item"><span class="detail-label">☀️ Güneş</span><span>${flower.sunlight}</span></div>
+        <div class="detail-item"><span class="detail-label">💧 Su</span><span>${flower.water}</span></div>
+        <div class="detail-item"><span class="detail-label">🌸 Çiçeklenme</span><span>${flower.bloom}</span></div>
+      `;
+    }
+    if (modalTips) {
+      modalTips.innerHTML = flower.tips.map(tip => `<li>${tip}</li>`).join('');
+    }
+
+    modal.classList.add('active');
+    if (modalOverlay) modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (modal) modal.classList.remove('active');
+    if (modalOverlay) modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ----------------------------------------------------------
+  // NAVBAR SCROLL EFFECT
+  // ----------------------------------------------------------
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  }
+
+  // ----------------------------------------------------------
+  // SCROLL ANIMATIONS (Intersection Observer)
+  // ----------------------------------------------------------
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+  if (animatedElements.length > 0) {
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = entry.target.querySelectorAll('.stat-number');
-                counters.forEach(counter => {
-                    const target = parseInt(counter.dataset.target);
-                    animateCounter(counter, target);
-                });
-                observer.unobserve(entry.target);
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    animatedElements.forEach(el => observer.observe(el));
+  }
+
+  // ----------------------------------------------------------
+  // COUNTER ANIMATION
+  // ----------------------------------------------------------
+  const counters = document.querySelectorAll('.counter');
+  if (counters.length > 0) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = parseInt(counter.dataset.target) || 0;
+          const duration = 2000;
+          const step = target / (duration / 16);
+          let current = 0;
+
+          const updateCounter = () => {
+            current += step;
+            if (current < target) {
+              counter.textContent = Math.floor(current);
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = target;
             }
-        });
+          };
+
+          updateCounter();
+          counterObserver.unobserve(counter);
+        }
+      });
     }, { threshold: 0.5 });
 
-    const statsSection = document.querySelector('.hero-stats');
-    if (statsSection) observer.observe(statsSection);
-}
+    counters.forEach(c => counterObserver.observe(c));
+  }
 
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 60;
-    const duration = 2000;
-    const stepTime = duration / 60;
-
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            current = target;
-            clearInterval(timer);
-        }
-        element.textContent = Math.round(current);
-    }, stepTime);
-}
-
-// ===== CTA FORM =====
-ctaForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    ctaForm.style.display = 'none';
-    ctaSuccess.style.display = 'block';
-    showToast('Bahçe ailemize hoş geldiniz! 🌸');
-});
-
-// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+  // ----------------------------------------------------------
+  // CTA FORM
+  // ----------------------------------------------------------
+  const ctaForm = document.getElementById('ctaForm');
+  if (ctaForm) {
+    ctaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = ctaForm.querySelector('input[type="email"]');
+      if (emailInput && emailInput.value) {
+        showToast('🌸 Teşekkürler! Çiçek bülteni için kaydınız alındı.');
+        emailInput.value = '';
+      } else {
+        showToast('⚠️ Lütfen geçerli bir e-posta adresi girin.');
+      }
     });
-});
+  }
 
-// ===== PARALLAX EFFECT ON HERO =====
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const heroContent = document.querySelector('.hero-content');
-    const heroFlowers = document.querySelector('.hero-flowers');
+  // ----------------------------------------------------------
+  // TOAST NOTIFICATION
+  // ----------------------------------------------------------
+  function showToast(message, duration = 3000) {
+    // Remove existing toast if any
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
 
-    if (heroContent && scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-        heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
-    }
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--card-bg, #333);
+      color: var(--text-primary, #fff);
+      padding: 14px 28px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      z-index: 10000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      opacity: 0;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    `;
+    document.body.appendChild(toast);
 
-    if (heroFlowers && scrolled < window.innerHeight) {
-        heroFlowers.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
+    requestAnimationFrame(() => {
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+      toast.style.opacity = '1';
+    });
+
+    setTimeout(() => {
+      toast.style.transform = 'translateX(-50%) translateY(100px)';
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 400);
+    }, duration);
+  }
+
+  // ----------------------------------------------------------
+  // SMOOTH SCROLL (nav links)
+  // ----------------------------------------------------------
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').slice(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+}); // end DOMContentLoaded
