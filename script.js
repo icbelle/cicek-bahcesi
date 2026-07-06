@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="modal-tips">
         <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">💡 İpuçları</h3>
         <ul style="list-style: disc; padding-left: 20px; color: var(--text-muted);">
-          ${flower.tips.map(tip => \`<li>\${tip}</li>\`).join('')}
+          ${flower.tips.map(tip => `<li>${tip}</li>`).join('')}
         </ul>
       </div>
     `;
