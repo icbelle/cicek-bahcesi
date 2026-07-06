@@ -384,7 +384,18 @@ function renderPalette() {
 }
 
 // ===== GARDEN PLANTING =====
+let justDragged = false; // Prevent planting after drag
+
 gardenCanvas.addEventListener('click', (e) => {
+    // Don't plant if we just finished dragging
+    if (justDragged) {
+        justDragged = false;
+        return;
+    }
+
+    // Don't plant if clicking on an existing flower
+    if (e.target.closest('.planted-flower')) return;
+
     if (!selectedPaletteFlower) {
         showToast('Önce bir çiçek seçin! 🌸');
         return;
@@ -441,16 +452,19 @@ function plantFlower(x, y) {
     ];
     showToast(messages[Math.floor(Math.random() * messages.length)]);
 
-    // Make draggable
+    // Make draggable + deletable
     makeDraggable(flower);
+    makeDeleteable(flower);
 }
 
 function makeDraggable(el) {
     let isDragging = false;
+    let hasMoved = false;
     let startX, startY, origX, origY;
 
     el.addEventListener('mousedown', (e) => {
         isDragging = true;
+        hasMoved = false;
         el.style.cursor = 'grabbing';
         el.style.zIndex = 25;
         startX = e.clientX;
@@ -458,12 +472,19 @@ function makeDraggable(el) {
         origX = el.offsetLeft;
         origY = el.offsetTop;
         e.preventDefault();
+        e.stopPropagation();
     });
 
     document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
+
+        // Only count as "moved" if dragged more than 5px (prevents accidental micro-drags)
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            hasMoved = true;
+        }
+
         el.style.left = `${origX + dx}px`;
         el.style.top = `${origY + dy}px`;
     });
@@ -473,7 +494,40 @@ function makeDraggable(el) {
             isDragging = false;
             el.style.cursor = 'grab';
             el.style.zIndex = 15;
+
+            // If we actually moved, set flag so canvas click doesn't plant a new flower
+            if (hasMoved) {
+                justDragged = true;
+                // Reset the flag after a short delay in case click event fires
+                setTimeout(() => { justDragged = false; }, 100);
+            }
         }
+    });
+}
+
+function makeDeleteable(el) {
+    el.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Add a shrink animation before removing
+        el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        el.style.transform = 'scale(0)';
+        el.style.opacity = '0';
+
+        setTimeout(() => {
+            el.remove();
+            plantedFlowers--;
+            if (plantedFlowers < 0) plantedFlowers = 0;
+            plantedCount.textContent = plantedFlowers;
+
+            // Show instructions again if garden is empty
+            if (plantedFlowers === 0) {
+                gardenInstructions.classList.remove('hidden');
+            }
+        }, 300);
+
+        showToast('Çiçek söküldü! 🗑️');
     });
 }
 
