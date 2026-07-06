@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----------------------------------------------------------
   // 6. FLOWER CARDS
   // ----------------------------------------------------------
-  const cardsContainer = document.getElementById('flowerCards');
+  const cardsContainer = document.getElementById('flowersGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
 
   function renderFlowerCards(filter = 'all') {
@@ -524,8 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----------------------------------------------------------
   const gardenCanvas = document.getElementById('gardenCanvas');
   const plantedCountEl = document.getElementById('plantedCount');
-  const clearGardenBtn = document.getElementById('clearGardenBtn');
-  const gardenPalette = document.getElementById('gardenPalette');
+  const clearGardenBtn = document.getElementById('clearGarden');
+  const gardenPalette = document.getElementById('paletteItems');
 
   let selectedPaletteFlower = paletteFlowers[0];
   let plantedFlowers = [];
@@ -718,47 +718,53 @@ document.addEventListener('DOMContentLoaded', () => {
   // 8. MODAL
   // ----------------------------------------------------------
   const modal = document.getElementById('flowerModal');
-  const modalOverlay = document.getElementById('modalOverlay');
   const modalClose = document.getElementById('modalClose');
-  const modalEmoji = document.getElementById('modalEmoji');
-  const modalName = document.getElementById('modalName');
-  const modalLatin = document.getElementById('modalLatin');
-  const modalDesc = document.getElementById('modalDesc');
-  const modalDetails = document.getElementById('modalDetails');
-  const modalTips = document.getElementById('modalTips');
+  const modalBody = document.getElementById('modalBody');
 
   function openModal(flower) {
-    if (!modal) return;
-    if (modalEmoji) modalEmoji.textContent = flower.emoji;
-    if (modalName) modalName.textContent = flower.name;
-    if (modalLatin) modalLatin.textContent = flower.latin;
-    if (modalDesc) modalDesc.textContent = flower.fullDesc;
-    if (modalDetails) {
-      modalDetails.innerHTML = `
-        <div class="detail-item"><span class="detail-label">📅 Mevsim</span><span>${flower.season}</span></div>
-        <div class="detail-item"><span class="detail-label">🌱 Zorluk</span><span>${flower.difficulty}</span></div>
-        <div class="detail-item"><span class="detail-label">☀️ Güneş</span><span>${flower.sunlight}</span></div>
-        <div class="detail-item"><span class="detail-label">💧 Su</span><span>${flower.water}</span></div>
-        <div class="detail-item"><span class="detail-label">🌸 Çiçeklenme</span><span>${flower.bloom}</span></div>
-      `;
-    }
-    if (modalTips) {
-      modalTips.innerHTML = flower.tips.map(tip => `<li>${tip}</li>`).join('');
-    }
+    if (!modal || !modalBody) return;
+    
+    modalBody.innerHTML = `
+      <div class="modal-header" style="text-align: center; margin-bottom: 20px;">
+        <div class="modal-emoji" style="font-size: 4rem; font-family: 'Apple Color Emoji', 'Segoe UI Emoji'; line-height: 1;">${flower.emoji}</div>
+        <h2 class="modal-name" style="font-family: 'Playfair Display', serif; font-size: 2rem; margin: 10px 0 5px;">${flower.name}</h2>
+        <div class="modal-latin" style="font-style: italic; color: var(--text-light);">${flower.latin}</div>
+      </div>
+      <p class="modal-desc" style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">${flower.fullDesc}</p>
+      
+      <div class="modal-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; background: var(--bg-secondary); padding: 15px; border-radius: var(--radius-md);">
+        <div class="detail-item"><span class="detail-label">📅 Mevsim:</span> <span>${flower.season}</span></div>
+        <div class="detail-item"><span class="detail-label">🌱 Zorluk:</span> <span>${flower.difficulty}</span></div>
+        <div class="detail-item"><span class="detail-label">☀️ Güneş:</span> <span>${flower.sunlight}</span></div>
+        <div class="detail-item"><span class="detail-label">💧 Su:</span> <span>${flower.water}</span></div>
+        <div class="detail-item"><span class="detail-label">🌸 Çiçeklenme:</span> <span>${flower.bloom}</span></div>
+      </div>
+      
+      <div class="modal-tips">
+        <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">💡 İpuçları</h3>
+        <ul style="list-style: disc; padding-left: 20px; color: var(--text-muted);">
+          ${flower.tips.map(tip => \`<li>\${tip}</li>\`).join('')}
+        </ul>
+      </div>
+    `;
 
     modal.classList.add('active');
-    if (modalOverlay) modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     if (modal) modal.classList.remove('active');
-    if (modalOverlay) modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 
   if (modalClose) modalClose.addEventListener('click', closeModal);
-  if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+  
+  // Close when clicking outside of modal content
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
