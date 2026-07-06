@@ -227,7 +227,6 @@ const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 const ctaForm = document.getElementById('ctaForm');
 const ctaSuccess = document.getElementById('ctaSuccess');
-const petalsContainer = document.getElementById('petalsContainer');
 
 let selectedPaletteFlower = null;
 let plantedFlowers = 0;
@@ -236,7 +235,6 @@ let plantedFlowers = 0;
 document.addEventListener('DOMContentLoaded', () => {
     renderFlowerCards();
     renderPalette();
-    initPetals();
     initScrollAnimations();
     initCounterAnimation();
 });
@@ -502,38 +500,7 @@ function showToast(message) {
     }, 2500);
 }
 
-// ===== FALLING PETALS =====
-function initPetals() {
-    const petalEmojis = ['🌸', '🎀', '💗', '🩷', '✿', '❀', '🌺'];
 
-    for (let i = 0; i < 15; i++) {
-        setTimeout(() => createPetal(petalEmojis), i * 800);
-    }
-
-    // Keep creating petals
-    setInterval(() => {
-        if (document.querySelectorAll('.petal').length < 20) {
-            createPetal(petalEmojis);
-        }
-    }, 2000);
-}
-
-function createPetal(petalEmojis) {
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-    petal.style.left = `${Math.random() * 100}%`;
-    petal.style.fontSize = `${0.8 + Math.random() * 1.2}rem`;
-    petal.style.animationDuration = `${8 + Math.random() * 12}s`;
-    petal.style.animationDelay = `${Math.random() * 5}s`;
-    petal.style.opacity = `${0.3 + Math.random() * 0.4}`;
-    petalsContainer.appendChild(petal);
-
-    // Remove after animation
-    setTimeout(() => {
-        petal.remove();
-    }, 25000);
-}
 
 // ===== SCROLL ANIMATIONS =====
 function initScrollAnimations() {
