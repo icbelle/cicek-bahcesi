@@ -900,4 +900,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ----------------------------------------------------------
+  // COUNTER ANIMATION
+  // ----------------------------------------------------------
+  function initCounterAnimation() {
+    const stats = document.querySelectorAll('.stat-number');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.getAttribute('data-target'));
+          let count = 0;
+          const duration = 2000;
+          const increment = target / (duration / 16);
+          const updateCount = () => {
+            count += increment;
+            if (count < target) {
+              entry.target.innerText = Math.ceil(count);
+              requestAnimationFrame(updateCount);
+            } else {
+              entry.target.innerText = target;
+            }
+          };
+          updateCount();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => observer.observe(stat));
+  }
+
+  initCounterAnimation();
+
 }); // end DOMContentLoaded
